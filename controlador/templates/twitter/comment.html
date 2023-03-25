@@ -1,0 +1,38 @@
+{% extends 'twitter/layout.html' %}
+{% load humanize %}
+{% block content %}
+
+<center>
+  <h2>Añadir comentario</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" >Publicar</button>
+    <p></p>
+{% for comment in comments %}
+    <div class="comment">
+        <p>{{ comment.comment }}</p>
+        <p>Publicado por {{ comment.user_name }} el {{ comment.submit_date }}</p>
+    </div>
+    
+{% empty %}
+    <p>Tus comentarios se enviarán al administrador
+      <p>Gracias por tu comentario</p>
+    </p>
+{% endfor %}
+  </form>
+   {% for comment in comments %}
+        <div class="comments" style="padding: 10px;">
+          <p class="font-weight-bold">
+            {{ comment.user }}
+            <span class=" text-muted font-weight-normal">
+              {{ comment.created_on }}
+            </span>
+          </p>
+          {{ comment.body | linebreaks }}
+        </div>
+        {% endfor %}
+
+</center>
+
+{% endblock %}

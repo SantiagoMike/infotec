@@ -1,0 +1,37 @@
+{% extends 'twitter/layout.html' %}
+
+{% block content %}
+
+<body class="login-page">
+    <div class="twitter-login-box">
+        <header>
+            <img src="https://cdn-icons-png.flaticon.com/512/2495/2495007.png"
+                alt="twitter logo">
+            <h1>Inicia Sesión</h1>
+        </header>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-wrapper">
+                <label for="user-name-id">Username</label>
+                {{ form.username }}
+            </div>
+
+            <div class="input-wrapper">
+                <label for="password-id">Password</label>
+                {{ form.password }}
+            </div>
+            {% if form.errors %}
+            <p class="text-danger">Advertencia: el usuario o contraseña son incorrectos </p>
+            {% endif %}
+            <button class="twitter-btn" style="background-color: #383535;" >Ingresar</button>
+        </form>
+
+        <div class="footer">
+            
+            <a href="{% url 'register' %}"> Regístrate 
+            </a> </button>
+        </div>
+
+    </div>
+    {% endblock content %}
