@@ -24,15 +24,19 @@ def home(request):
     return render(request, 'twitter/newsfeed.html', context)
 
 def register(request):
-    info1=""
-    info2=""
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            u = form.save()
+            profile = Profile.objects.create(user=u)
+            profile.save()
+            u.save()
             return redirect('home')
     else:
         form = UserRegisterForm()
+
+    context = {'form' : form}
+    return render(request, 'twitter/register.html', context)
 
     context = {'form' : form}
     return render(request, 'twitter/register.html', context)
